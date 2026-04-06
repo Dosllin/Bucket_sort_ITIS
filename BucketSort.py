@@ -1,1 +1,62 @@
-def insertion_sort(bucket):    steps = 0    for i in range(1, len(bucket)):        steps += 1 # Считаем итерацию for        key = bucket[i]        j = i - 1        steps += 1  # Учитываем первую проверку условия while        while j >= 0 and bucket[j] > key:            steps += 1  # Считаем итерацию while            bucket[j + 1] = bucket[j]            j -= 1            steps += 1  # Учитываем остальные проверки условия while        bucket[j + 1] = key    return stepsdef bucket_sort(arr):    # # Определение вёдер 1 версия, не прошла пробу    # if 2<= len(arr) <= 9:    #     count_bucket = 2    # else:    #     count_bucket = 5    #    # set_bucket = set()    # count = 1    # while len(set_bucket) < count_bucket:    #     set_bucket.add(arr[count_bucket*count])    #     count += 1    # print(set_bucket)    steps = 0    max_value = max(arr)    steps+=len(arr)    length = min(max_value, len(arr))    buckets = [[] for _ in range(length)]    steps += length    for element in arr:        steps += 1        index_bucket = int((element * (length-1))/max_value)        buckets[index_bucket].append(element)    for bucket in buckets:        steps += 1        steps += insertion_sort(bucket)    index = 0    for bucket in buckets:        steps += 1        for num in bucket:            steps += 1            arr[index] = num            index += 1    return steps
+def insertion_sort(bucket):
+    steps = 0
+    for i in range(1, len(bucket)):
+        steps += 1 # Считаем итерацию for
+        key = bucket[i]
+        j = i - 1
+
+        steps += 1  # Учитываем первую проверку условия while
+        while j >= 0 and bucket[j] > key:
+            steps += 1  # Считаем итерацию while
+            bucket[j + 1] = bucket[j]
+            j -= 1
+            steps += 1  # Учитываем остальные проверки условия while
+
+        bucket[j + 1] = key
+    return steps
+
+def bucket_sort(arr):
+    # # Определение вёдер 1 версия, не прошла пробу
+    # if 2<= len(arr) <= 9:
+    #     count_bucket = 2
+    # else:
+    #     count_bucket = 5
+    #
+    # set_bucket = set()
+    # count = 1
+    # while len(set_bucket) < count_bucket:
+    #     set_bucket.add(arr[count_bucket*count])
+    #     count += 1
+    # print(set_bucket)
+    steps = 0
+
+    max_value = max(arr)
+    steps+=len(arr)
+
+    length = min(max_value, len(arr))
+    buckets = [[] for _ in range(length)]
+    steps += length
+
+    for element in arr:
+        steps += 1
+        index_bucket = int((element * (length-1))/max_value)
+        buckets[index_bucket].append(element)
+
+    for bucket in buckets:
+        steps += 1
+        steps += insertion_sort(bucket)
+
+    index = 0
+    for bucket in buckets:
+        steps += 1
+        for num in bucket:
+            steps += 1
+            arr[index] = num
+            index += 1
+    return steps
+
+
+
+
+
+
